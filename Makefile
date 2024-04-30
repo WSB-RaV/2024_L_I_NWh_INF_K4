@@ -14,3 +14,10 @@ test:
 
 docker_build:
 	docker build -t hello-world-printer .
+USERNAME=wsbrav
+TAG=$(USERNAME)/hello-world-printer-k4
+docker_push: docker_build
+	@docker login --username $(USERNAME) --password-stdin $${DOCKER_PASSWORD}; \
+	docker tag hello-world-printer $(TAG); \
+	docker push $(TAG); \
+	docker logout;
